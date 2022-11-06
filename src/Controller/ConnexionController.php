@@ -12,13 +12,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class ConnexionController extends AbstractController
 {
     /**
      * @Route("/inscription", name="inscription_user", methods={"GET", "POST"})
      */
-    public function inscriptionUser(Request $request, ManagerRegistry $doctrine): Response
+    public function inscriptionUser(Request $request, ManagerRegistry $doctrine, MailerInterface $mailer): Response
     {
 
         $errorState = false;
@@ -64,7 +67,8 @@ class ConnexionController extends AbstractController
                 'required'   => false,
                 'empty_data' => null,
             ])
-
+            ->add("recaptcha", ReCaptchaType::class)
+            
             ->add('save', SubmitType::class, ['label' => 'Inscription'])
             ->getForm();
 
@@ -77,6 +81,15 @@ class ConnexionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form["password"]->getData() === $form["password2"]->getData()) {
+                // $email = (new Email())
+                // ->from('florian.tellier02@gmail.com')
+                // ->to('florian.tellier02@gmail.com')
+                // ->subject('Inscription au Forum !')
+                // ->text("Bonjour".$form["pseudo"]->getData()."Merci de corfirmer votre inscription au forum en cliquant sur ce lien : ( attentions vous n'avez que 24 heures )")
+                // ->html('<a href="http://localhost:8000/confirmation">Confirmer mon inscription !</a>');
+    
+                //  $mailer->send($email);
+
                 return $this->redirectToRoute('email_send', ['userEmail' => $form["email"]->getData()]);
             } else {
                 $errorState = true;
@@ -113,6 +126,16 @@ class ConnexionController extends AbstractController
     {
         return $this->render('/connexion/emailsend.html.twig', [
             'userEmail' => $userEmail,
+        ]);
+    }
+
+    /**
+     * @Route("/confirmation", name="email_confirm")
+     */
+    public function confirmEmail(): Response
+    {
+        return $this->render('/connexion/emailsend.html.twig', [
+            'userEmail' => "confirmé",
         ]);
     }
 
