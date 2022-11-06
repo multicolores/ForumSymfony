@@ -1,0 +1,54 @@
+h1 {
+  text-align: center;
+  padding: 3% 0;
+  font-weight: bold;
+  font-size: 4em;
+}
+form {
+  background: rgb(247, 247, 247);
+  border-radius: 10px;
+  padding: 4% 6%;
+  width: 40%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+  color: black;
+  margin-bottom: 15vh;
+}
+form div {
+  padding-bottom: 20px;
+}
+label {
+  padding: 10px 0;
+  display: inline-block;
+  width: 100%;
+}
+ul,
+li {
+  color: rgba(235, 49, 49, 0.802);
+}
+input {
+  padding: 10px 7px;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(11, 11, 11, 0.692);
+  border-radius: 7px;
+  color: black;
+  width: 100%;
+}
+
+button {
+  float: right;
+  margin-top: 20px;
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.692);
+}
+button:hover {
+  background-color: rgb(61, 61, 61);
+  color: white;
+}
+.info {
+  color: rgba(255, 255, 255, 0.622);
+  position: fixed;
+  right: 10px;
+  bottom: 10vh;
+}
