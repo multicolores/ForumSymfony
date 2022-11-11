@@ -37,6 +37,9 @@ class User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ville = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $confirmed = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +137,18 @@ class User
     public function setVille(?string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function isConfirmed(): ?bool
+    {
+        return $this->confirmed;
+    }
+
+    public function setConfirmed(?bool $confirmed): self
+    {
+        $this->confirmed = $confirmed;
 
         return $this;
     }

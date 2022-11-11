@@ -15,21 +15,13 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class ConnexionController extends AbstractController
 {
-    private $requestStack;
-
-    public function __construct(RequestStack $requestStack)
-    {
-        $this->requestStack = $requestStack;
-    }
-
     /**
      * @Route("/inscription", name="inscription_user", methods={"GET", "POST"})
      */
-    public function inscriptionUser(Request $request, ManagerRegistry $doctrine, MailerInterface $mailer): Response
+    public function inscriptionUser(Request $request,  MailerInterface $mailer, ManagerRegistry $doctrine): Response
     {
 
         $errorState = false;
@@ -91,11 +83,11 @@ class ConnexionController extends AbstractController
                 ->to($form["email"]->getData())
                 ->subject('Inscription au Forum !')
                 ->text("Bonjour".$form["pseudo"]->getData())
-                ->html('<h1>Bonjour '.$form["pseudo"]->getData().'!</h1><p>Merci de corfirmer votre inscription au forum en cliquant sur ce lien : <a href="http://localhost:8000/confirmation">Confirmer mon inscription </a> ( attention vous n\' avez que 24 heures )</p>');
+                ->html('<h1>Bonjour '.$form["pseudo"]->getData().'!</h1><p>Merci de corfirmer votre inscription au forum en cliquant sur ce lien : <a href="http://localhost:8000/confirmation/'.$form["pseudo"]->getData().'">Confirmer mon inscription </a> ( attention vous n\' avez que 24 heures )</p>');
 
                  $mailer->send($email);
 
-                 //Add user info in localstorage until he confirm his inscription
+                 //Add user in database with confirmed value to false
                  $user = new User();
                  $user->setEmail($form["email"]->getData())
                      ->setPassword($form["password"]->getData())
@@ -104,12 +96,15 @@ class ConnexionController extends AbstractController
                      ->setAge($form["age"]->getData())
                      ->setPrenom($form["prenom"]->getData())
                      ->setVille($form["ville"]->getData())
-                     ->setTel($form["tel"]->getData());
- 
-                 $session = $this->requestStack->getSession();
-                 $session->set('newUser', $user);
+                     ->setTel($form["tel"]->getData())
+                     ->setConfirmed(false);
 
-                return $this->redirectToRoute('email_send', ['userEmail' => $form["email"]->getData()]);
+                 $entityManager = $doctrine->getManager();
+
+                 $entityManager->persist($user);
+                 $entityManager->flush();
+
+                return $this->redirectToRoute('email_send');
             } else {
                 $errorState = true;
                 $errorMessage = "Attention les mots de passes renseignés ne sont pas identiques !";
@@ -128,22 +123,27 @@ class ConnexionController extends AbstractController
      */
     public function emailSend(): Response
     {
-        $session = $this->requestStack->getSession();
-        $newUser = $session->get('newUser');
-
-        return $this->render('/connexion/emailsend.html.twig', [
-            'userEmail' =>  $newUser->getEmail(),
-        ]);
+        return $this->render('/connexion/emailsend.html.twig');
     }
 
     /**
-     * @Route("/confirmation", name="email_confirm")
+     * @Route("/confirmation/{pseudo}", name="email_confirm")
      */
-    public function confirmEmail(): Response
+    public function confirmEmail($pseudo, ManagerRegistry $doctrine): Response
     {
-        return $this->render('/connexion/emailsend.html.twig', [
-            'userEmail' => "confirmé",
-        ]);
+            $entityManager = $doctrine->getManager();
+            $user = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
+            if (!$user) {
+                throw $this->createNotFoundException(
+                    'No product found for id '.$id
+                );
+            }
+            $user->setConfirmed(true);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
     }
 
 
