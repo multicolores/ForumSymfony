@@ -15,9 +15,17 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ConnexionController extends AbstractController
 {
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     /**
      * @Route("/inscription", name="inscription_user", methods={"GET", "POST"})
      */
@@ -75,20 +83,31 @@ class ConnexionController extends AbstractController
 
         $form->handleRequest($request);
 
-        //todo send un email, l'email renvoie vers une page qui créer le user pitet dans url params dans l'email 
-        //todo rajouter un capcha
-        //todo autocomplession ville
-
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form["password"]->getData() === $form["password2"]->getData()) {
-                // $email = (new Email())
-                // ->from('florian.tellier02@gmail.com')
-                // ->to('florian.tellier02@gmail.com')
-                // ->subject('Inscription au Forum !')
-                // ->text("Bonjour".$form["pseudo"]->getData()."Merci de corfirmer votre inscription au forum en cliquant sur ce lien : ( attentions vous n'avez que 24 heures )")
-                // ->html('<a href="http://localhost:8000/confirmation">Confirmer mon inscription !</a>');
-    
-                //  $mailer->send($email);
+                // Send email to user
+                $email = (new Email())
+                ->from('florian.tellier02@gmail.com')
+                ->to($form["email"]->getData())
+                ->subject('Inscription au Forum !')
+                ->text("Bonjour".$form["pseudo"]->getData())
+                ->html('<h1>Bonjour '.$form["pseudo"]->getData().'!</h1><p>Merci de corfirmer votre inscription au forum en cliquant sur ce lien : <a href="http://localhost:8000/confirmation">Confirmer mon inscription </a> ( attention vous n\' avez que 24 heures )</p>');
+
+                 $mailer->send($email);
+
+                 //Add user info in localstorage until he confirm his inscription
+                 $user = new User();
+                 $user->setEmail($form["email"]->getData())
+                     ->setPassword($form["password"]->getData())
+                     ->setPseudo($form["pseudo"]->getData())
+                     ->setNom($form["nom"]->getData())
+                     ->setAge($form["age"]->getData())
+                     ->setPrenom($form["prenom"]->getData())
+                     ->setVille($form["ville"]->getData())
+                     ->setTel($form["tel"]->getData());
+ 
+                 $session = $this->requestStack->getSession();
+                 $session->set('newUser', $user);
 
                 return $this->redirectToRoute('email_send', ['userEmail' => $form["email"]->getData()]);
             } else {
@@ -102,30 +121,18 @@ class ConnexionController extends AbstractController
             'erreur' => $errorState,
             'errorMessage' => $errorMessage
         ]);
-
-        // $user = new User();
-        // $user->setEmail("toto@gmail.com")
-        // ->setPassword("123")
-        // ->setPseudo("elToto")
-        // ->setNom("toto")
-        // ->setAge(22)
-        // ->setPrenom("tee")
-        // ->setVille("eee")
-        // ->setTel("099");
-
-        // $entityManager->persist($user);
-        // $entityManager->flush();
-
-        // return new Response('créer pour l'id : '.$user->getId());
     }
 
     /**
-     * @Route("/emailsend/{userEmail}", name="email_send")
+     * @Route("/emailsend/", name="email_send")
      */
-    public function emailSend($userEmail): Response
+    public function emailSend(): Response
     {
+        $session = $this->requestStack->getSession();
+        $newUser = $session->get('newUser');
+
         return $this->render('/connexion/emailsend.html.twig', [
-            'userEmail' => $userEmail,
+            'userEmail' =>  $newUser->getEmail(),
         ]);
     }
 

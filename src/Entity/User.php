@@ -119,7 +119,7 @@ class User
         return $this->tel;
     }
 
-    public function setTel(string $tel): self
+    public function setTel(?string $tel): self
     {
         $this->tel = $tel;
 
