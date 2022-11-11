@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ConnexionController extends AbstractController
 {
@@ -59,13 +60,20 @@ class ConnexionController extends AbstractController
                     'message' => 'Age doit être un nombre'
                 ]),
             ])
-            ->add('ville', TextType::class, [
-                'required'   => false,
-                'empty_data' => null,
-            ])
             ->add('tel', TextType::class, [
                 'required'   => false,
                 'empty_data' => null,
+            ])
+            ->add('ville', ChoiceType::class, [
+                'required'   => false,
+                'empty_data' => null,
+                'choices'  => [
+                    '-' => null,
+                    'Saint-Quentin' => 'Saint-Quentin',
+                    'Paris' => 'Paris',
+                    'Lyon' => 'Lyon',
+                    'Lille' => 'Lille',
+                ],
             ])
             ->add("recaptcha", ReCaptchaType::class)
             

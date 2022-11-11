@@ -52,3 +52,7 @@ button:hover {
   right: 10px;
   bottom: 10vh;
 }
+select{
+  padding: 10px 20px;
+  border-radius: 5px;
+}
