@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<link href="{{ asset('css/Form.css') }}" rel="stylesheet"/>
+
+<h1>Inscription</h1>
+
+    {{ form(loginForm) }}
+
+
+{% if erreur %}
+    <p class="errorMessage">{{errorMessage}} </p>
+{% endif %}
+
+<p class="info">* : champ obligatoire</p>
+
+{% endblock %}
+
