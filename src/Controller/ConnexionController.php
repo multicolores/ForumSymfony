@@ -76,7 +76,7 @@ class ConnexionController extends AbstractController
                 ],
             ])
             ->add("recaptcha", ReCaptchaType::class)
-            
+
             ->add('save', SubmitType::class, ['label' => 'Inscription'])
             ->getForm();
 
@@ -87,30 +87,30 @@ class ConnexionController extends AbstractController
             if ($form["password"]->getData() === $form["password2"]->getData()) {
                 // Send email to user
                 $email = (new Email())
-                ->from('florian.tellier02@gmail.com')
-                ->to($form["email"]->getData())
-                ->subject('Inscription au Forum !')
-                ->text("Bonjour".$form["pseudo"]->getData())
-                ->html('<h1>Bonjour '.$form["pseudo"]->getData().'!</h1><p>Merci de corfirmer votre inscription au forum en cliquant sur ce lien : <a href="http://localhost:8000/confirmation/'.$form["pseudo"]->getData().'">Confirmer mon inscription </a> ( attention vous n\' avez que 24 heures )</p>');
+                    ->from('florian.tellier02@gmail.com')
+                    ->to($form["email"]->getData())
+                    ->subject('Inscription au Forum !')
+                    ->text("Bonjour" . $form["pseudo"]->getData())
+                    ->html('<h1>Bonjour ' . $form["pseudo"]->getData() . '!</h1><p>Merci de corfirmer votre inscription au forum en cliquant sur ce lien : <a href="http://localhost:8000/confirmation/' . $form["pseudo"]->getData() . '">Confirmer mon inscription </a> ( attention vous n\' avez que 24 heures )</p>');
 
-                 $mailer->send($email);
+                $mailer->send($email);
 
-                 //Add user in database with confirmed value to false
-                 $user = new User();
-                 $user->setEmail($form["email"]->getData())
-                     ->setPassword($form["password"]->getData())
-                     ->setPseudo($form["pseudo"]->getData())
-                     ->setNom($form["nom"]->getData())
-                     ->setAge($form["age"]->getData())
-                     ->setPrenom($form["prenom"]->getData())
-                     ->setVille($form["ville"]->getData())
-                     ->setTel($form["tel"]->getData())
-                     ->setConfirmed(false);
+                //Add user in database with confirmed value to false
+                $user = new User();
+                $user->setEmail($form["email"]->getData())
+                    ->setPassword($form["password"]->getData())
+                    ->setPseudo($form["pseudo"]->getData())
+                    ->setNom($form["nom"]->getData())
+                    ->setAge($form["age"]->getData())
+                    ->setPrenom($form["prenom"]->getData())
+                    ->setVille($form["ville"]->getData())
+                    ->setTel($form["tel"]->getData())
+                    ->setConfirmed(false);
 
-                 $entityManager = $doctrine->getManager();
+                $entityManager = $doctrine->getManager();
 
-                 $entityManager->persist($user);
-                 $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
                 return $this->redirectToRoute('email_send');
             } else {
@@ -139,19 +139,19 @@ class ConnexionController extends AbstractController
      */
     public function confirmEmail($pseudo, ManagerRegistry $doctrine): Response
     {
-            $entityManager = $doctrine->getManager();
-            $user = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
-            if (!$user) {
-                throw $this->createNotFoundException(
-                    'No product found for id '.$id
-                );
-            }
-            $user->setConfirmed(true);
+        $entityManager = $doctrine->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'Aucun utilisateur ne correspond, merci de vous inscrire'
+            );
+        }
+        $user->setConfirmed(true);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+        $entityManager->persist($user);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('home');
+        return $this->redirectToRoute('home');
     }
 
 

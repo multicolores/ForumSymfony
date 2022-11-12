@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum Thèmes
+{% endblock %}
+
+{% block body %}
+	<link href="{{ asset('css/Home.css') }}" rel="stylesheet"/>
+
+	<div class="centrer_container">
+		<h1>Les différents thèmes existant dans le forum.</h1>
+		{% if themes %}
+
+			<div class="themes_container">
+				{% for theme in themes %}
+
+					{% if theme.status %}
+						<div class="theme">
+							<span class="status">Ouvert</span>
+							<h3>{{theme.name}}</h3>
+							{% if theme.lastUpdate %}
+								<span class="lastUpdate">{{theme.lastUpdate}}</span>
+							{% endif %}
+							<p class="nombre_discussions">Nombre de discussions : XX</p>
+						</div>
+					{% endif %}
+				{% endfor %}
+
+			</div>
+
+
+		{% else %}
+			<p>Aucun thème n'éxiste pour le moment.
+			</p>
+		{% endif %}
+
+	</div>
+{% endblock %}
