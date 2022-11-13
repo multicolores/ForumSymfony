@@ -55,8 +55,7 @@ a:hover {
 
 .centrer_container {
   width: 70%;
-  margin-top: 20vh;
-  margin-left: 50%;
+  margin: 10vh 50%;
   transform: translateX(-50%);
 }
 .errorMessage{
