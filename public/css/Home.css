@@ -1,9 +1,12 @@
+.centrer_container {
+    margin: 3vh 50%;
+}
 .themes_container{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 50px;
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 .theme {
     position: relative;
@@ -26,7 +29,7 @@ h3{
     position: absolute;
     width: 100%;
     height: 7px;
-    background-color: rgb(60, 192, 60);
+    background-color: rgb(76, 212, 76);
     bottom: -7px;
     right: 0;
 }
@@ -35,4 +38,42 @@ h3{
     right: 40px;
     bottom: 20px;
 }
-
+.pagination{
+    padding: 2vh 0;
+    justify-content: flex-end;
+    gap: 20px;
+}
+.pagination .current{
+    position: relative;
+    padding: 10px 10px;
+}
+.pagination .current::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color: rgb(76, 212, 76);
+    bottom: -3px;
+    right: 0;
+}
+.pagination span {
+    padding: 10px 10px;
+}
+.pagination a {
+    text-decoration: none;
+    padding: 10px 10px;
+    position: relative;
+}
+.pagination a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 5px;
+    background-color: rgb(168, 164, 164);
+    bottom: -3px;
+    right: 0;
+    transition: 300ms;
+}
+.pagination a:hover::after {
+    width: 100%;
+}
