@@ -20,7 +20,8 @@
 							{% if theme.lastUpdate %}
 								<span class="lastUpdate">{{theme.lastUpdate}}</span>
 							{% endif %}
-							<p class="nombre_discussions">Nombre de discussions : XX</p>
+							<p class="nombre_discussions">Nombre de discussions :
+								{{theme.discussions | length}}</p>
 						</div>
 					{% endif %}
 				{% endfor %}
