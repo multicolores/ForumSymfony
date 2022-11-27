@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Discusions
+{% endblock %}
+
+{% block body %}
+	<link href="{{ asset('css/Discussion.css') }}" rel="stylesheet"/>
+
+	<div class="discussion_container">
+
+
+		{% if theme %}
+			<h1>{{theme.name}}</h1>
+
+			{% if discussions %}
+				{{ knp_pagination_render(discussions) }}
+				{% for discussion in discussions %}
+
+					<div class="discussion">
+						<span class="first_letter {{discussion.user.pseudo|first|upper}}">{{discussion.user.pseudo|first|upper}}</span>
+						<span class="user_time">{{discussion.user.pseudo}}
+							:
+							{{discussion.createdAt|date('d/m/Y - h:i')}}</span>
+						<p>{{discussion.text}}</p>
+					</div>
+
+				{% endfor %}
+				{{ knp_pagination_render(discussions) }}
+
+
+			{% else %}
+				<h2 class="error_label">Aucune discussion n'éxiste pour le theme
+					{{theme.name}}
+				</h2>
+			{% endif %}
+
+			{% if connectedUser %}
+						<a href="#sendMessage" class="sendMessageToRightButton primaryButton">Envoyer un message</a>
+
+						<div class="form_container" id="sendMessage">
+						<p>Envoyer un message : </p>
+						 	{{ form(sendMessageForm) }}
+						</div>
+			{% endif %}
+
+
+		{% else %}
+			<h2 class="error_label">Aucune theme ne correspond</h2>
+			<a href="{{ path('home') }}" class="primaryButton">Retourner a la page principale</a>
+		{% endif %}
+
+
+	</div>
+
+
+	{# ancien #}
+
+{# <div class="discussion_container">
+		<h1>Theme name</h1> #}
+	{# 
+																																				<a href="#sendMessage" class="sendMessageToRightButton primaryButton">Envoyer un message</a>
+																																		
+																																				<div class="discussion">
+																																					<span class="first_letter {{discussionss.firstLetter}}">{{discussionss.firstLetter}}</span>
+																																					<span class="user_time">{{discussionss.user}}
+																																						:
+																																						{{discussionss.time}}</span>
+																																					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur commodi nulla mollitia assumenda est maxime doloremque deleniti deserunt facilis tenetur?</p>
+																																				</div>
+																																				<div class="discussion">
+																																					<span class="first_letter {{discussionss.firstLetter}}">{{discussionss.firstLetter}}</span>
+																																					<span class="user_time">{{discussionss.user}}
+																																						:
+																																						{{discussionss.time}}</span>
+																																					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur commodi nulla mollitia assumenda est maxime doloremque deleniti deserunt facilis tenetur?</p>
+																																				</div> #}
+	{# <div class="discussion">
+																																					<span class="first_letter {{discussion.firstLetter}}">{{discussion.firstLetter}}</span>
+																																					<span class="user_time">{{discussion.user}}
+																																						:
+																																						{{discussion.time}}</span>
+																																					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur commodi nulla mollitia assumenda est maxime doloremque deleniti deserunt facilis tenetur?</p>
+																																				</div>
+																																				<div class="discussion">
+																																					<span class="first_letter {{discussion.firstLetter}}">{{discussion.firstLetter}}</span>
+																																					<span class="user_time">{{discussion.user}}
+																																						:
+																																						{{discussion.time}}</span>
+																																					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur commodi nulla mollitia assumenda est maxime doloremque deleniti deserunt facilis tenetur?</p>
+																																				</div> #}
+	{# 
+																																<div class="input_container" id="sendMessage">
+																																	<input type="text">
+																																	<button>Envoyer</button>
+																																</div>
+																														
+																														
+																															</div> #}
+
+
+{% endblock %}
