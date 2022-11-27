@@ -27,7 +27,8 @@ body {
 img {
   width: 50%;
 }
-h1 {
+h1,
+h2 {
   font-weight: bold;
 }
 button {
@@ -58,14 +59,76 @@ a:hover {
   margin: 10vh 50%;
   transform: translateX(-50%);
 }
-.errorMessage{
-    width: 100%;
-    background: white;
-    position: fixed;
-    padding: 3vh 0;
-    margin: 0;
-    bottom: 0;
-    color: rgb(232, 29, 29);
-    text-align: center;
-    font-weight: bold;
+.errorMessage {
+  width: 100%;
+  background: white;
+  position: fixed;
+  padding: 3vh 0;
+  margin: 0;
+  bottom: 0;
+  color: rgb(232, 29, 29);
+  text-align: center;
+  font-weight: bold;
+}
+
+.primaryButton {
+  padding: 10px 17px;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0.692);
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+.primaryButton:hover {
+  background-color: white;
+  color: black;
+}
+
+.error_label {
+  padding: 30px 0;
+}
+
+/* Pagination */
+
+.pagination {
+  padding: 2vh 0;
+  justify-content: flex-end;
+  gap: 20px;
+}
+.pagination .current {
+  position: relative;
+  padding: 10px 10px;
+}
+.pagination .current::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  background-color: rgb(76, 212, 76);
+  bottom: -3px;
+  right: 0;
+}
+.pagination span {
+  padding: 10px 10px;
+}
+.pagination a {
+  text-decoration: none;
+  padding: 10px 10px;
+  position: relative;
+}
+.pagination a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 5px;
+  background-color: rgb(168, 164, 164);
+  bottom: -3px;
+  right: 0;
+  transition: 300ms;
+}
+.pagination a:hover::after {
+  width: 100%;
 }
