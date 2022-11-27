@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class DiscussionController extends AbstractController
 {
@@ -54,9 +56,50 @@ class DiscussionController extends AbstractController
             );
         }
 
+        //todo : quand j'aurais fait la partie authentification : modifier le code d'après 
+        $connectedUser = null;
+        $repository = $doctrine->getRepository(User::class);
+        $connectedUser = $repository->findOneBy(['id' => '1']);
+        $newDiscussion = new Discussion();
+        $form = $this->createFormBuilder($newDiscussion)
+            ->add('text', TextType::class, ['label' => false])
+            ->add('save', SubmitType::class, ['label' => 'Envoyer'])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $repository = $doctrine->getRepository(Theme::class);
+            $theme = $repository->findOneBy(['id' => $themeId]);
+
+            $repository = $doctrine->getRepository(User::class);
+            $user = $repository->findOneBy(['id' => $connectedUser->getId()]);
+
+            $entityManager = $doctrine->getManager();
+            $discussion = new Discussion();
+            $discussion->setUser($user);
+            $discussion->setTheme($theme);
+            $discussion->setText($form["text"]->getData());
+            $discussion->setCreatedAt(time());
+
+            $entityManager->persist($discussion);
+            $entityManager->flush();
+            unset($form);
+            unset($discussion);
+            $newDiscussion = new Discussion();
+            $form = $this->createFormBuilder($newDiscussion)
+                ->add('text', TextType::class, ['label' => false])
+                ->add('save', SubmitType::class, ['label' => 'Envoyer'])
+                ->getForm();
+        }
+
+
+
         return $this->render('/discussion/discussion.html.twig', [
             'discussions' => $discussions,
-            'theme' => $theme
+            'theme' => $theme,
+            'connectedUser' => $connectedUser,
+            'sendMessageForm' => $form->createView(),
         ]);
     }
 }

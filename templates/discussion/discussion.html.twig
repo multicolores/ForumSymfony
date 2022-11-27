@@ -13,7 +13,7 @@
 			<h1>{{theme.name}}</h1>
 
 			{% if discussions %}
-
+				{{ knp_pagination_render(discussions) }}
 				{% for discussion in discussions %}
 
 					<div class="discussion">
@@ -34,12 +34,16 @@
 				</h2>
 			{% endif %}
 
-			<a href="#sendMessage" class="sendMessageToRightButton primaryButton">Envoyer un message</a>
+			{% if connectedUser %}
+						<a href="#sendMessage" class="sendMessageToRightButton primaryButton">Envoyer un message</a>
 
-			<div class="input_container" id="sendMessage">
-				<input type="text">
-				<button>Envoyer</button>
-			</div>
+						<div class="form_container" id="sendMessage">
+						<p>Envoyer un message : </p>
+						 	{{ form(sendMessageForm) }}
+						</div>
+			{% endif %}
+
+
 		{% else %}
 			<h2 class="error_label">Aucune theme ne correspond</h2>
 			<a href="{{ path('home') }}" class="primaryButton">Retourner a la page principale</a>

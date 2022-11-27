@@ -110,13 +110,21 @@ p {
 .Z {
   background-color: rgb(255, 0, 140);
 }
-
-.input_container {
+.form_container {
   margin-top: 100px;
+}
+.form_container form {
+  width: 100%;
+}
+#form {
+  margin-top: 10px;
   width: 100%;
   display: flex;
   justify-content: space-around;
   gap: 5%;
+}
+#form div:first-child {
+  width: 100%;
 }
 input {
   width: 100%;
