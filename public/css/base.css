@@ -132,3 +132,12 @@ a:hover {
 .pagination a:hover::after {
   width: 100%;
 }
+
+.user_pseudo {
+  position: fixed;
+  left: 4vw;
+  top: 7vh;
+  font-weight: bold;
+  font-size: 1.5em;
+  border-bottom: 5px solid rgb(0, 238, 255);
+}

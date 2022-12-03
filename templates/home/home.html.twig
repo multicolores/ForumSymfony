@@ -6,6 +6,15 @@
 {% block body %}
 	<link href="{{ asset('css/Home.css') }}" rel="stylesheet"/>
 
+	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+		{% else %}
+			<a onclick="toggleDialog()" class="loginButton">Connexion</a>
+			<div class="login_dialog_container" id="dialog">
+				<a class="close-dialog" onclick="toggleDialog()">Fermer</a>
+				{{render(path('app_login'))}}
+			</div>
+	{% endif %}
+
 	<div class="centrer_container">
 		<h1>Les différents thèmes existant dans le forum.</h1>
 		{% if themes %}
@@ -21,17 +30,21 @@
 							{% if theme.lastUpdate %}
 								<span class="lastUpdate">{{theme.lastUpdate|date('d/m/Y')}}</span>
 							{% endif %}
-							<p class="nombre_discussions">Nombre de discussions :
-								{{theme.discussions | length}}</p>
+							<p class="nombre_discussions">Nombre de discussions :{{theme.discussions | length}}</p>
 						</div>
 					{% endif %}
 				{% endfor %}
 			</div>
 			{{ knp_pagination_render(themes) }}
 		{% else %}
-			<p>Aucun thème n'éxiste pour le moment.
-			</p>
+			<p>Aucun thème n'éxiste pour le moment.</p>
 		{% endif %}
 
 	</div>
+	<script>
+		function toggleDialog() {
+el = document.getElementById("dialog");
+el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+	</script>
 {% endblock %}
