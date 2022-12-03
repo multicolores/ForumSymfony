@@ -15,7 +15,7 @@ class HomeController extends AbstractController
 {
 
     /**
-     * @Route("/home", name="home", methods={"GET", "POST"})
+     * @Route("/", name="home", methods={"GET", "POST"})
      */
     public function home(ManagerRegistry $doctrine, Request $request, PaginatorInterface $paginator): Response
     {
