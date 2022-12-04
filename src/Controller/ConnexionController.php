@@ -167,7 +167,7 @@ class ConnexionController extends AbstractController
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-
+        //todo on error return to "/" et faire le déconte du nombre de tentative et l'attente
         return $this->render('connexion/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,

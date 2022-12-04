@@ -9,10 +9,19 @@
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 		{% else %}
 			<a onclick="toggleDialog()" class="loginButton">Connexion</a>
-			<div class="login_dialog_container" id="dialog">
-				<a class="close-dialog" onclick="toggleDialog()">Fermer</a>
-				{{render(path('app_login'))}}
-			</div>
+
+
+			{% if app.request.get('loginError') == "error" %}
+				<div class="login_dialog_container" id="dialog" style="visibility: visible;">
+					<a class="close-dialog" onclick="toggleDialog()">Fermer</a>
+					{{render(path('app_login'))}}
+				</div>
+			{% else %}
+				<div class="login_dialog_container" id="dialog" style="visibility: hidden;">
+					<a class="close-dialog" onclick="toggleDialog()">Fermer</a>
+					{{render(path('app_login'))}}
+				</div>
+			{% endif %}
 	{% endif %}
 
 	<div class="centrer_container">

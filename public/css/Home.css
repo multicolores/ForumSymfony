@@ -64,7 +64,7 @@ h3 {
   transform: translateX(-50%);
   left: 0;
   top: 20vh;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 .close-dialog {
