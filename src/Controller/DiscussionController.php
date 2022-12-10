@@ -13,9 +13,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Security\Core\Security;
+
 
 class DiscussionController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
 
     /**
      * @Route("/discussion/{themeId}", name="discussion", methods={"GET", "POST"})
@@ -56,10 +64,8 @@ class DiscussionController extends AbstractController
             );
         }
 
-        //todo : quand j'aurais fait la partie authentification : modifier le code d'après 
-        $connectedUser = null;
+        $connectedUser = $this->security->getUser();
         $repository = $doctrine->getRepository(User::class);
-        $connectedUser = $repository->findOneBy(['id' => '1']);
         $newDiscussion = new Discussion();
         $form = $this->createFormBuilder($newDiscussion)
             ->add('text', TextType::class, ['label' => false])
@@ -98,7 +104,6 @@ class DiscussionController extends AbstractController
         return $this->render('/discussion/discussion.html.twig', [
             'discussions' => $discussions,
             'theme' => $theme,
-            'connectedUser' => $connectedUser,
             'sendMessageForm' => $form->createView(),
         ]);
     }

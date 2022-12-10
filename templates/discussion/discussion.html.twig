@@ -34,16 +34,15 @@
 				</h2>
 			{% endif %}
 
-			{% if connectedUser %}
-						<a href="#sendMessage" class="sendMessageToRightButton primaryButton">Envoyer un message</a>
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<a href="#sendMessage" class="sendMessageToRightButton primaryButton">Envoyer un message</a>
 
-						<div class="form_container" id="sendMessage">
-						<p>Envoyer un message : </p>
-						 	{{ form(sendMessageForm) }}
-						</div>
+				<div class="form_container" id="sendMessage">
+					<p>Envoyer un message : </p>
+					{{ form(sendMessageForm) }}
+				</div>		
 			{% endif %}
-
-
+			
 		{% else %}
 			<h2 class="error_label">Aucune theme ne correspond</h2>
 			<a href="{{ path('home') }}" class="primaryButton">Retourner a la page principale</a>
