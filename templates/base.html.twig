@@ -30,6 +30,7 @@
 					<a class="nav-item nav-link" href="{{ path('inscription_user') }}">Inscription</a>
 					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 						<a class="nav-item nav-link" href="{{ path('home') }}">Modifier mon profil</a>
+						<a class="nav-item nav-link logout_link" href="{{ path('app_logout') }}">Deconnexion</a>
 					{% endif %}
 				</div>
 			</div>

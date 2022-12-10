@@ -22,7 +22,7 @@ body {
 }
 .navbar {
   background: rgb(44, 44, 44) !important;
-  padding-left: 7vw;
+  padding-left: 13vw;
   z-index: 20;
 }
 img {
@@ -136,10 +136,15 @@ a:hover {
 
 .user_pseudo {
   position: fixed;
-  right: 4vw;
+  left: 3vw;
   top: 8px;
   font-weight: bold;
   font-size: 1.5em;
   border-bottom: 5px solid rgb(0, 238, 255);
   z-index: 25;
+}
+
+.logout_link {
+  position: absolute;
+  right: 3vw;
 }
