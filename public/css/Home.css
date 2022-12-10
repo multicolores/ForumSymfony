@@ -48,12 +48,13 @@ h3 {
 }
 
 .loginButton {
-  position: absolute;
+  position: fixed;
   right: 5vw;
   top: 2vh;
   font-weight: bold;
   border-bottom: 5px solid white;
   cursor: pointer;
+  z-index: 25;
 }
 
 .login_dialog_container {
