@@ -19,7 +19,7 @@
 		{% endblock %}
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="{{ path('home') }}">Forum</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -28,9 +28,15 @@
 				<div class="navbar-nav">
 					<a class="nav-item nav-link" href="{{ path('home') }}">Home</a>
 					<a class="nav-item nav-link" href="{{ path('inscription_user') }}">Inscription</a>
+					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+						<a class="nav-item nav-link" href="{{ path('home') }}">Modifier mon profil</a>
+					{% endif %}
 				</div>
 			</div>
 		</nav>
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			<span class="user_pseudo">{{ app.user.pseudo }}</span>
+		{% endif %}
 		{% block body %}{% endblock %}
 
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

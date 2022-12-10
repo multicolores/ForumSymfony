@@ -23,6 +23,7 @@ body {
 .navbar {
   background: rgb(44, 44, 44) !important;
   padding-left: 7vw;
+  z-index: 20;
 }
 img {
   width: 50%;
@@ -131,4 +132,14 @@ a:hover {
 }
 .pagination a:hover::after {
   width: 100%;
+}
+
+.user_pseudo {
+  position: fixed;
+  right: 4vw;
+  top: 8px;
+  font-weight: bold;
+  font-size: 1.5em;
+  border-bottom: 5px solid rgb(0, 238, 255);
+  z-index: 25;
 }

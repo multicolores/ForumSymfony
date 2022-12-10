@@ -14,10 +14,9 @@ use Knp\Component\Pager\PaginatorInterface;
 class HomeController extends AbstractController
 {
 
-    /**
-     * @Route("/home", name="home", methods={"GET", "POST"})
-     */
-    public function home(ManagerRegistry $doctrine, Request $request, PaginatorInterface $paginator): Response
+
+    #[Route('/{errorMessage}', name: 'home', defaults: ['errorMessage' => "noError"])]
+    public function home($errorMessage, ManagerRegistry $doctrine, Request $request, PaginatorInterface $paginator): Response
     {
         // $entityManager = $doctrine->getManager();
         // $theme = new Theme();

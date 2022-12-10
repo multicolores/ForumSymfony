@@ -16,13 +16,15 @@ use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ConnexionController extends AbstractController
 {
     /**
      * @Route("/inscription", name="inscription_user", methods={"GET", "POST"})
      */
-    public function inscriptionUser(Request $request,  MailerInterface $mailer, ManagerRegistry $doctrine): Response
+    public function inscriptionUser(Request $request,  MailerInterface $mailer, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
 
         $errorState = false;
@@ -98,7 +100,6 @@ class ConnexionController extends AbstractController
                 //Add user in database with confirmed value to false
                 $user = new User();
                 $user->setEmail($form["email"]->getData())
-                    ->setPassword($form["password"]->getData())
                     ->setPseudo($form["pseudo"]->getData())
                     ->setNom($form["nom"]->getData())
                     ->setAge($form["age"]->getData())
@@ -106,6 +107,12 @@ class ConnexionController extends AbstractController
                     ->setVille($form["ville"]->getData())
                     ->setTel($form["tel"]->getData())
                     ->setConfirmed(false);
+
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $user,
+                    $form["password"]->getData()
+                );
+                $user->setPassword($hashedPassword);
 
                 $entityManager = $doctrine->getManager();
 
@@ -155,17 +162,20 @@ class ConnexionController extends AbstractController
     }
 
 
-    // /**
-    //  * @Route("/login", name="login_user", methods={"GET", "POST"})
-    //  */
-    // public function loginUser(ManagerRegistry $doctrine): Response
-    // {
-    //     $user = $doctrine->getRepository(User::class)->find(1);
-    //     if (!$user) {
-    //         throw $this->createNotFoundException(
-    //             'Pas de user pour id 1'
-    //         );
-    //     }
-    //     return new Response('bien connecter '.$user->getEmail());
-    // }
+    #[Route('/login', name: 'app_login')]
+    public function loginUser(AuthenticationUtils $authenticationUtils): Response
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+        //todo on error return to "/" et faire le déconte du nombre de tentative et l'attente
+        return $this->render('connexion/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
+    }
+
+    #[Route('/logout', name: 'app_logout', methods: ['GET'])]
+    public function logout()
+    {
+    }
 }
