@@ -148,17 +148,24 @@ class ConnexionController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $user = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
+        $error = false;
         if (!$user) {
-            throw $this->createNotFoundException(
-                'Aucun utilisateur ne correspond, merci de vous inscrire'
-            );
+            $error = true;
+
+            return $this->render('/connexion/confirmation.html.twig', [
+                'error' => $error,
+            ]);
+        } else {
+            $user->setConfirmed(true);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->render('/connexion/confirmation.html.twig', [
+                'error' => $error,
+                'userPseudo' => $user->getPseudo(),
+            ]);
         }
-        $user->setConfirmed(true);
-
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('home');
     }
 
 
