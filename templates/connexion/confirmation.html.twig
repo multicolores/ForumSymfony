@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation Utilisateur
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+
+    	<div class="centrer_container">
+            <h1>Aucun Utilisateur ne correspond, merci de vous identifié</h1>
+            <hr>
+            <a href="{{ path('home') }}" class="primaryButton">Retourner a la page principale</a>
+	    </div>
+
+    {% else %}
+
+        <div class="centrer_container">
+            <h1>Votre inscription à bien été confirmé {{userPseudo}}!</h1>
+            <hr>
+            <a href="{{ path('home') }}" class="primaryButton">Retourner a la page principale pour s'identifié</a>
+	    </div>
+
+    {% endif %}
+
+{% endblock %}
