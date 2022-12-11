@@ -1,11 +1,6 @@
 html {
   scroll-behavior: smooth;
 }
-.sendMessageToRightButton {
-  position: absolute;
-  right: 50px;
-  top: 15vh;
-}
 .discussion_container {
   padding: 10vh 20vw;
 }
@@ -23,10 +18,11 @@ html {
   color: white;
   padding: 20px 30px;
   padding-left: 60px;
-  border-radius: 20px;
+  border-radius: 10px;
   border: 3px solid #1b1c1e;
   color: #1b1c1e;
   background: rgb(247, 247, 247);
+  transition: 0.2s;
 }
 .discussion::after {
   content: "";
@@ -40,7 +36,7 @@ html {
   border-radius: 10px;
 }
 .discussion:hover {
-  background: rgb(187, 187, 187);
+  background: rgb(224, 224, 224);
   transition: 0.2s;
 }
 .first_letter {
@@ -124,9 +120,7 @@ p {
 .Z {
   background-color: rgb(255, 0, 140);
 }
-.form_container {
-  margin-top: 100px;
-}
+
 .form_container form {
   width: 100%;
 }
@@ -157,4 +151,160 @@ input:focus {
 #form_save {
   color: #1b1c1e;
   border: 1px solid #1b1c1e;
+}
+
+#sendMessage {
+  visibility: hidden;
+}
+.writeMessageButton {
+  float: right;
+  margin-top: 10px !important;
+}
+.sendMessage_container {
+  position: relative;
+  margin-top: 100px;
+  padding: 20px 30px;
+  border-radius: 10px;
+  border: 3px solid #1b1c1e;
+  background-color: #f8f8f8;
+}
+
+.sendMessage_container::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #1b1c1e;
+  top: 10px;
+  right: -10px;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+a {
+  position: relative;
+  text-decoration: none !important;
+}
+a:focus,
+button:focus {
+  /* Provide a fallback style for browsers
+	 that don't support :focus-visible */
+  outline: none;
+}
+
+.button {
+  pointer-events: auto;
+  cursor: pointer;
+  background: #ffffff;
+  border: none;
+  padding: 1.4rem 1.5rem;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+  color: white !important;
+}
+
+.button::before,
+.button::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.sendMessageFixedRightButton {
+  position: fixed;
+  right: 2vw;
+  top: 12vh;
+}
+/* #closeButton {
+  padding: 1.4rem 1.5rem;
+} */
+.button--open-chat {
+  font-weight: bold;
+  background: none;
+}
+
+.button--open-chat::before {
+  content: "";
+  z-index: -1;
+  background: #1b1c1e;
+  -webkit-clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 70%,
+    85% 70%,
+    80% 70%,
+    75% 70%,
+    0 70%
+  );
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 70%,
+    85% 70%,
+    80% 70%,
+    75% 70%,
+    0 70%
+  );
+  transition: clip-path 0.3s cubic-bezier(0.7, 0, 0.2, 1),
+    -webkit-clip-path 0.3s cubic-bezier(0.7, 0, 0.2, 1), transform 0.3s ease;
+}
+
+.button--open-chat:hover::before {
+  transform: translate3d(0, -10px, 0);
+  -webkit-clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 70%,
+    85% 70%,
+    86% 100%,
+    75% 70%,
+    0 70%
+  );
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 70%,
+    85% 70%,
+    86% 100%,
+    75% 70%,
+    0 70%
+  );
+}
+
+.button--open-chat span {
+  display: block;
+  position: relative;
+}
+
+.button--open-chat > span {
+  transition: transform 0.3s;
+  transform: translate3d(0, -0.556rem, 0);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.button--open-chat:hover > span {
+  transform: translate3d(0, -1.111rem, 0);
+}
+
+.button--open-chat:hover > span > span {
+  animation: MoveUpInitial 0.15s forwards, MoveUpEnd 0.15s forwards 0.15s;
+}
+@keyframes MoveUpInitial {
+  to {
+    transform: translate3d(0, -105%, 0);
+  }
+}
+
+@keyframes MoveUpEnd {
+  from {
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }

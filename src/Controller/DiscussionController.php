@@ -95,7 +95,7 @@ class DiscussionController extends AbstractController
             $newDiscussion = new Discussion();
             $form = $this->createFormBuilder($newDiscussion)
                 ->add('text', TextType::class, ['label' => false])
-                ->add('save', SubmitType::class, ['label' => 'Envoyer'])
+                ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
                 ->getForm();
         }
 

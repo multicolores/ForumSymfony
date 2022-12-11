@@ -44,10 +44,10 @@ button {
   transition: 0.3s;
   cursor: pointer;
 }
-button:hover {
+/* button:hover {
   background-color: white;
   color: black;
-}
+} */
 a {
   color: white;
   text-decoration: none;

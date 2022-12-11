@@ -35,66 +35,63 @@
 			{% endif %}
 
 			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-				<a href="#sendMessage" class="sendMessageToRightButton primaryButton">Envoyer un message</a>
+				{# <a href="#sendMessage" onclick="openSendMessage()" class="sendMessageToRightButton primaryButton">Envoyer un message</a> #}
 
-				<div class="form_container" id="sendMessage">
-					<p>Envoyer un message : </p>
-					{{ form(sendMessageForm) }}
-				</div>		
+				<a href="#sendMessage" onclick="openSendMessage()" class="button button--open-chat sendMessageFixedRightButton">
+					<span>
+						<span>Envoyer un message</span>
+					</span>
+				</a>
+
+				<a onclick="toggleSendMessage()" class="button button--open-chat writeMessageButton">
+					<span>
+						<span id="closeButton">Ecrire un Message</span>
+					</span>
+				</a>
+
+
+				<div class="sendMessage_container" id="sendMessage">
+					<div class="form_container">
+						<p>Envoyer un message :
+						</p>
+						{{ form(sendMessageForm) }}
+						</div>
+					</div>
+
+				{% endif %}
+
+			{% else %}
+				<h2 class="error_label">Aucune theme ne correspond</h2>
+				<a href="{{ path('home') }}" class="primaryButton">Retourner a la page principale</a>
 			{% endif %}
-			
-		{% else %}
-			<h2 class="error_label">Aucune theme ne correspond</h2>
-			<a href="{{ path('home') }}" class="primaryButton">Retourner a la page principale</a>
-		{% endif %}
 
 
-	</div>
+		</div>
 
+		<script>
+			function toggleSendMessage() {
+closeButton = document.getElementById("closeButton");
+el = document.getElementById("sendMessage");
+el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 
-	{# ancien #}
+if (el.style.visibility == "visible") {
+closeButton.innerText = "Fermer";
+} else {
+closeButton.innerText = "Ecrire un Message";
+}
+}
 
-{# <div class="discussion_container">
-		<h1>Theme name</h1> #}
-	{# 
-																																				<a href="#sendMessage" class="sendMessageToRightButton primaryButton">Envoyer un message</a>
-																																		
-																																				<div class="discussion">
-																																					<span class="first_letter {{discussionss.firstLetter}}">{{discussionss.firstLetter}}</span>
-																																					<span class="user_time">{{discussionss.user}}
-																																						:
-																																						{{discussionss.time}}</span>
-																																					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur commodi nulla mollitia assumenda est maxime doloremque deleniti deserunt facilis tenetur?</p>
-																																				</div>
-																																				<div class="discussion">
-																																					<span class="first_letter {{discussionss.firstLetter}}">{{discussionss.firstLetter}}</span>
-																																					<span class="user_time">{{discussionss.user}}
-																																						:
-																																						{{discussionss.time}}</span>
-																																					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur commodi nulla mollitia assumenda est maxime doloremque deleniti deserunt facilis tenetur?</p>
-																																				</div> #}
-	{# <div class="discussion">
-																																					<span class="first_letter {{discussion.firstLetter}}">{{discussion.firstLetter}}</span>
-																																					<span class="user_time">{{discussion.user}}
-																																						:
-																																						{{discussion.time}}</span>
-																																					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur commodi nulla mollitia assumenda est maxime doloremque deleniti deserunt facilis tenetur?</p>
-																																				</div>
-																																				<div class="discussion">
-																																					<span class="first_letter {{discussion.firstLetter}}">{{discussion.firstLetter}}</span>
-																																					<span class="user_time">{{discussion.user}}
-																																						:
-																																						{{discussion.time}}</span>
-																																					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur commodi nulla mollitia assumenda est maxime doloremque deleniti deserunt facilis tenetur?</p>
-																																				</div> #}
-	{# 
-																																<div class="input_container" id="sendMessage">
-																																	<input type="text">
-																																	<button>Envoyer</button>
-																																</div>
-																														
-																														
-																															</div> #}
+function openSendMessage() {
+el = document.getElementById("sendMessage");
+closeButton = document.getElementById("closeButton");
+el.style.visibility = "visible";
 
+if (el.style.visibility == "visible") {
+closeButton.innerText = "Fermer";
+} else {
+closeButton.innerText = "Ecrire un Message";
+}
+}
+		</script>
 
-{% endblock %}
+	{% endblock %}
