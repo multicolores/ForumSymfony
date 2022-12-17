@@ -11,8 +11,18 @@ form {
   left: 0;
   top: 0;
   color: black;
-  -webkit-box-shadow: 0px 0px 100px 100px rgba(61, 61, 61, 0.712);
-  box-shadow: 0px 0px 100px 100px rgba(61, 61, 61, 0.712);
+  border: 3px solid #1b1c1e;
+}
+form::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #1b1c1e;
+  top: 10px;
+  right: -10px;
+  z-index: -1;
+  border-radius: 10px;
 }
 form div {
   padding-top: 5px;
@@ -37,13 +47,77 @@ input {
   width: 100%;
 }
 
-button {
+.button--login {
+  overflow: hidden;
+  font-family: obvia, sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #f7f7f7;
   float: right;
-  margin-top: 20px;
-  color: black;
-  border: 1px solid rgba(0, 0, 0, 0.692);
+  margin-top: 30px;
+  padding: 1rem 1.6rem;
+  background-color: white;
+  border: 2px solid rgba(0, 0, 0, 0.8);
 }
-button:hover {
-  background-color: rgb(61, 61, 61);
+
+.button--login span {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.button--login > span {
+  overflow: hidden;
+  mix-blend-mode: difference;
+}
+
+.button--login:hover > span > span {
+  animation: MoveRightInitial 0.1s forwards, MoveRightEnd 0.3s forwards 0.2s;
   color: white;
+}
+
+@keyframes MoveRightInitial {
+  to {
+    transform: translate3d(105%, 0, 0);
+  }
+}
+
+@keyframes MoveRightEnd {
+  from {
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.button--login::before,
+.button--login::after {
+  content: "";
+  background: #000;
+}
+
+.button--login::before {
+  width: 135%;
+  -webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 0% 0%);
+  clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 0% 0%);
+  transform: translate3d(-100%, 0, 0);
+}
+
+.button--login:hover::before {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.button--login::after {
+  width: 100%;
+  transform: translate3d(100%, 0, 0);
+  transition: transform 0.3s cubic-bezier(0.7, 0, 0.2, 1);
+  border: 5px solid black;
+}
+
+.button--login:hover::after {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.01s 0.3s cubic-bezier(0.7, 0, 0.2, 1);
 }

@@ -4,6 +4,8 @@ body {
   box-sizing: border-box;
   color: white;
   background: rgb(61, 61, 61);
+  background-color: #f8f8f8;
+  color: #1b1c1e;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -42,10 +44,10 @@ button {
   transition: 0.3s;
   cursor: pointer;
 }
-button:hover {
+/* button:hover {
   background-color: white;
   color: black;
-}
+} */
 a {
   color: white;
   text-decoration: none;
@@ -77,6 +79,9 @@ a:hover {
   background-color: rgba(255, 255, 255, 0);
   border: 1px solid rgba(255, 255, 255, 0.692);
   color: white;
+  background-color: #f8f8f8;
+  border: 1px solid #1b1c1e;
+  color: #1b1c1e;
   font-size: 1em;
   font-weight: bold;
   transition: 0.3s;
@@ -114,11 +119,13 @@ a:hover {
 }
 .pagination span {
   padding: 10px 10px;
+  color: black;
 }
 .pagination a {
   text-decoration: none;
   padding: 10px 10px;
   position: relative;
+  color: black;
 }
 .pagination a::after {
   content: "";
@@ -141,6 +148,7 @@ a:hover {
   font-weight: bold;
   font-size: 1.5em;
   border-bottom: 5px solid rgb(0, 238, 255);
+  color: white;
   z-index: 25;
 }
 

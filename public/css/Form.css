@@ -1,8 +1,12 @@
+body {
+  background-color: rgb(61, 61, 61);
+}
 h1 {
   text-align: center;
   padding: 3% 0;
   font-weight: bold;
   font-size: 4em;
+  z-index: 10;
 }
 form {
   background: rgb(247, 247, 247);
@@ -14,7 +18,11 @@ form {
   position: relative;
   color: black;
   margin-bottom: 15vh;
+  background-color: white;
+  border: 3px solid rgb(61, 61, 61);
+  z-index: 5;
 }
+
 form div {
   padding-bottom: 20px;
 }
@@ -52,7 +60,74 @@ button:hover {
   right: 10px;
   bottom: 10vh;
 }
-select{
+select {
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+.wave_container {
+  position: absolute;
+  top: 0vh;
+  left: 0;
+  width: 100%;
+  height: 70vh;
+  transform: rotate(180deg);
+  z-index: -10;
+}
+
+.waves {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-bottom: -7px; /*Fix for safari gap*/
+}
+
+.content {
+  position: relative;
+  height: 20vh;
+  text-align: center;
+  background-color: white;
+}
+
+/* Animation */
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .waves {
+    height: 40px;
+    min-height: 40px;
+  }
+  .content {
+    height: 30vh;
+  }
+  h1 {
+    font-size: 24px;
+  }
 }

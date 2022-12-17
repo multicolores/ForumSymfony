@@ -8,7 +8,11 @@
 
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 		{% else %}
-			<a onclick="toggleDialog()" class="loginButton">Connexion</a>
+			<div class="loginButton">
+				<a onclick="toggleDialog()" class="button button--connexion">
+					<span>Connexion</span>
+				</a>
+			</div>
 
 
 			{% if app.request.get('loginError') == "error" %}

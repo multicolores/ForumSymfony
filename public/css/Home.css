@@ -10,12 +10,24 @@
 }
 .theme {
   position: relative;
-  background-color: white;
-  color: black;
+  background-color: #f8f8f8;
+  color: #1b1c1e;
+  border: 3px solid #1b1c1e;
   cursor: pointer;
   padding: 30px 50px;
   border-radius: 10px;
   min-width: 500px;
+}
+.theme::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #1b1c1e;
+  top: 10px;
+  right: -10px;
+  z-index: -1;
+  border-radius: 10px;
 }
 h3 {
   font-weight: 900;
@@ -47,20 +59,10 @@ h3 {
   height: 100%;
 }
 
-.loginButton {
-  position: fixed;
-  right: 5vw;
-  top: 2vh;
-  font-weight: bold;
-  border-bottom: 5px solid white;
-  cursor: pointer;
-  z-index: 25;
-}
-
 .login_dialog_container {
   position: sticky;
   z-index: 10;
-  width: 500px;
+  width: 550px;
   margin-left: 50%;
   transform: translateX(-50%);
   left: 0;
@@ -82,4 +84,104 @@ h3 {
 .modalDialog:target {
   opacity: 1;
   pointer-events: auto;
+}
+
+a {
+  position: relative;
+}
+a:focus,
+button:focus {
+  /* Provide a fallback style for browsers
+	 that don't support :focus-visible */
+  outline: none;
+}
+
+.button {
+  pointer-events: auto;
+  cursor: pointer;
+  background: #ffffff;
+  border: none;
+  padding: 2rem 1.3rem;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+}
+
+.button::before,
+.button::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.loginButton {
+  position: fixed;
+  right: 3vw;
+  top: 12vh;
+  cursor: pointer;
+  z-index: 25;
+}
+
+.button--connexion {
+  font-weight: 700;
+  width: 175px;
+  height: 120px;
+  color: #fff;
+  background: none;
+}
+
+.button--connexion::before {
+  content: "";
+  background: #1b1c1e;
+  -webkit-clip-path: path(
+    "M154.5,88.5 C131,113.5 62.5,110 30,89.5 C-2.5,69 -3.5,42 4.5,25.5 C12.5,9 33.5,-6 85,3.5 C136.5,13 178,63.5 154.5,88.5 Z"
+  );
+  clip-path: path(
+    "M154.5,88.5 C131,113.5 62.5,110 30,89.5 C-2.5,69 -3.5,42 4.5,25.5 C12.5,9 33.5,-6 85,3.5 C136.5,13 178,63.5 154.5,88.5 Z"
+  );
+  transition: clip-path 0.5s cubic-bezier(0.585, 2.5, 0.645, 0.55),
+    -webkit-clip-path 0.5s cubic-bezier(0.585, 2.5, 0.645, 0.55),
+    background 0.5s ease;
+}
+
+.button--connexion:hover::before {
+  /* background: #262626; */
+  -webkit-clip-path: path(
+    "M143,77 C117,96 74,100.5 45.5,91.5 C17,82.5 -10.5,57 5.5,31.5 C21.5,6 79,-5.5 130.5,4 C182,13.5 169,58 143,77 Z"
+  );
+  clip-path: path(
+    "M143,77 C117,96 74,100.5 45.5,91.5 C17,82.5 -10.5,57 5.5,31.5 C21.5,6 79,-5.5 130.5,4 C182,13.5 169,58 143,77 Z"
+  );
+}
+
+.button--connexion::after {
+  content: "";
+  height: 86%;
+  width: 97%;
+  top: 5%;
+  border-radius: 58% 42% 55% 45% / 56% 45% 55% 44%;
+  border: 1px solid #1b1c1e;
+  transform: rotate(-20deg);
+  z-index: -1;
+  transition: transform 0.5s cubic-bezier(0.585, 2.5, 0.645, 0.55);
+}
+
+.button--connexion:hover::after {
+  transform: translate3d(0, -5px, 0);
+}
+
+.button--connexion span {
+  display: block;
+  transition: transform 0.3s ease;
+  mix-blend-mode: difference;
+  color: white;
+  font-size: 1.3em;
+}
+
+.button--connexion:hover span {
+  transform: translate3d(0, -10px, 0);
 }

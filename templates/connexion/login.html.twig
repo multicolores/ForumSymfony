@@ -18,6 +18,10 @@
 
 		<input type="hidden" name="_target_path" value="/">
 		<input type="hidden" name="_failure_path" value="{{ path('home', {loginError: "error"}) }}">
-		<button type="submit">connexion</button>
+		<button type="submit" class="button button--login">
+			<span>
+				<span>Connexion</span>
+			</span>
+		</button>
 	</form>
 {% endblock %}
