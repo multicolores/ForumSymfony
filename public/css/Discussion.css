@@ -36,7 +36,7 @@ html {
   border-radius: 10px;
 }
 .discussion:hover {
-  background: rgb(224, 224, 224);
+  background: rgb(231, 231, 231);
   transition: 0.2s;
 }
 .first_letter {
@@ -307,4 +307,30 @@ button:focus {
   to {
     transform: translate3d(0, 0, 0);
   }
+}
+
+/* BUTTONS ACTONS */
+.discussion_actions {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+}
+.discussion_actions button {
+  border-color: black;
+  color: black;
+  border-radius: 5px;
+}
+.discussion_actions button:hover {
+  background-color: #1b1c1e;
+  color: #f8f8f8;
+}
+.discussion_actions button:last-child:hover {
+  background-color: #d41d05;
+  border-color: #d41d05;
+  color: #f8f8f8;
 }

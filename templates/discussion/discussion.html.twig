@@ -22,6 +22,12 @@
 							:
 							{{discussion.createdAt|date('d/m/Y - h:i')}}</span>
 						<p>{{discussion.text}}</p>
+						{% if is_granted('ROLE_ADMIN') %}
+							<div class="discussion_actions">
+								<button>modifier</button>
+								<button>supprimer</button>
+							</div>
+						{% endif %}
 					</div>
 
 				{% endfor %}
