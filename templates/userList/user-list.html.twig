@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum List utilisateur
+{% endblock %}
+
+{% block body %}
+	<link href="{{ asset('css/UserList.css') }}" rel="stylesheet"/>
+
+
+	<div class="centrer_container">
+		<h1>Les différents participants dans le forum.</h1>
+		{% if users %}
+			<div class="users_container">
+				{% for user in users %}
+						<div class="user">
+							<h3>{{user.pseudo}}</h3>
+							<p class="nombre_discussions">{{user.email}}</p>
+						</div>
+				{% endfor %}
+			</div>
+			{{ knp_pagination_render(users) }}
+		{% else %}
+			<p>Aucun utilisateur n'éxiste pour le moment.</p>
+		{% endif %}
+
+	</div>
+
+{% endblock %}

@@ -32,6 +32,10 @@
 						<a class="nav-item nav-link" href="{{ path('home') }}">Modifier mon profil</a>
 						<a class="nav-item nav-link logout_link" href="{{ path('app_logout') }}">Deconnexion</a>
 					{% endif %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<a class="nav-item nav-link" href="{{ path('create_theme') }}">Créer un thème</a>
+						<a class="nav-item nav-link" href="{{ path('user_list') }}">Liste des participants</a>
+					{% endif %}
 				</div>
 			</div>
 		</nav>

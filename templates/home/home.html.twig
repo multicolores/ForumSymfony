@@ -28,6 +28,12 @@
 			{% endif %}
 	{% endif %}
 
+
+	{% if is_granted('ROLE_ADMIN') %}
+		<a href="{{ path('create_theme') }}" class="createTheme-button">Créer un thème</a>
+	{% endif %}
+
+
 	<div class="centrer_container">
 		<h1>Les différents thèmes existant dans le forum.</h1>
 		{% if themes %}
