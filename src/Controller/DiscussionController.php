@@ -107,4 +107,18 @@ class DiscussionController extends AbstractController
             'sendMessageForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/admin/delete-discussion/{discussionId}", name="delete_discussion")
+     */
+    public function delete_discussion($discussionId, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $discussionToDelete = $entityManager->getRepository(Discussion::class)->find($discussionId);
+        $themeId = $discussionToDelete->getTheme()->getId();
+        $entityManager->remove($discussionToDelete);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('discussion', ['themeId' => $themeId]);
+    }
 }

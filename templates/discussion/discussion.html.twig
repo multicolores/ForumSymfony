@@ -24,12 +24,21 @@
 						<p>{{discussion.text}}</p>
 						{% if is_granted('ROLE_ADMIN') %}
 							<div class="discussion_actions">
-								<button>modifier</button>
-								<button>supprimer</button>
+								<button onclick="openEditMessage({{discussion.id}})">modifier</button>
+								<button onclick="openDeleteMessage({{discussion.id}})">supprimer</button>
 							</div>
 						{% endif %}
 					</div>
-
+					{% if is_granted('ROLE_ADMIN') %}
+							<div id="deleteMessage-{{discussion.id}}" class="pop_up_container">
+								<h2>Supprimer cette discussion de {{discussion.user.pseudo}} ?</h2>
+								<p><strong>Message</strong> : {{discussion.text}}</p>
+								<div>
+									<button onclick="openDeleteMessage({{discussion.id}})">annuler</button>
+									<a href="{{ path('delete_discussion', {discussionId: discussion.id}) }}" class="primaryButton">supprimer</a>
+								</div>
+							</div>
+					{% endif %}
 				{% endfor %}
 				{{ knp_pagination_render(discussions) }}
 
@@ -61,8 +70,8 @@
 						<p>Envoyer un message :
 						</p>
 						{{ form(sendMessageForm) }}
-						</div>
 					</div>
+				</div>
 
 				{% endif %}
 
@@ -76,28 +85,38 @@
 
 		<script>
 			function toggleSendMessage() {
-closeButton = document.getElementById("closeButton");
-el = document.getElementById("sendMessage");
-el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+				closeButton = document.getElementById("closeButton");
+				el = document.getElementById("sendMessage");
+				el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 
-if (el.style.visibility == "visible") {
-closeButton.innerText = "Fermer";
-} else {
-closeButton.innerText = "Ecrire un Message";
-}
-}
+				if (el.style.visibility == "visible") {
+					closeButton.innerText = "Fermer";
+				} else {
+					closeButton.innerText = "Ecrire un Message";
+				}
+			}
 
-function openSendMessage() {
-el = document.getElementById("sendMessage");
-closeButton = document.getElementById("closeButton");
-el.style.visibility = "visible";
+			function openSendMessage() {
+				el = document.getElementById("sendMessage");
+				closeButton = document.getElementById("closeButton");
+				el.style.visibility = "visible";
 
-if (el.style.visibility == "visible") {
-closeButton.innerText = "Fermer";
-} else {
-closeButton.innerText = "Ecrire un Message";
-}
-}
+				if (el.style.visibility == "visible") {
+					closeButton.innerText = "Fermer";
+				} else {
+					closeButton.innerText = "Ecrire un Message";
+				}
+			}
+
+			function openEditMessage(discussionId) {
+			console.log("edit");
+			console.log(discussionId);
+			}
+
+			function openDeleteMessage(discussionId) {
+				el = document.getElementById("deleteMessage-"+discussionId);
+				el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+			}
 		</script>
 
 	{% endblock %}
