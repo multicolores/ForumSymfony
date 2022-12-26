@@ -121,4 +121,26 @@ class DiscussionController extends AbstractController
 
         return $this->redirectToRoute('discussion', ['themeId' => $themeId]);
     }
+
+    /**
+     * @Route("/admin/edit-discussion/{discussionId}-{discussionText}", name="edit_discussion")
+     */
+    public function edit_discussion($discussionId, $discussionText, ManagerRegistry $doctrine): Response
+    {
+
+        $entityManager = $doctrine->getManager();
+        $discussionToEdit = $entityManager->getRepository(Discussion::class)->find($discussionId);
+        $themeId = $discussionToEdit->getTheme()->getId();
+
+        if (!$discussionToEdit) {
+            throw $this->createNotFoundException(
+                'Erreur, aucune discussion de correspond'
+            );
+        }
+
+        $discussionToEdit->setText($discussionText);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('discussion', ['themeId' => $themeId]);
+    }
 }

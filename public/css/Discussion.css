@@ -359,6 +359,12 @@ button:focus {
 }
 .pop_up_container div button {
   border-radius: 5px;
+  transition: 0s;
+}
+.pop_up_container input {
+  color: #f8f8f8;
+  border-color: #f8f8f8;
+  margin-top: 20px;
 }
 .pop_up_container div .primaryButton {
   background-color: #1b1c1e;
@@ -373,4 +379,8 @@ button:focus {
 .pop_up_container div .primaryButton:hover {
   background-color: #d41d05;
   border: 1px solid #d41d05;
+}
+.pop_up_container div .edit:hover {
+  background-color: #1ebe18;
+  border: 1px solid #1ebe18;
 }
