@@ -24,12 +24,39 @@
 						<p>{{discussion.text}}</p>
 						{% if is_granted('ROLE_ADMIN') %}
 							<div class="discussion_actions">
-								<button>modifier</button>
-								<button>supprimer</button>
+								<button onclick="openEditMessage({{discussion.id}})">modifier</button>
+								<button onclick="openDeleteMessage({{discussion.id}})">supprimer</button>
 							</div>
 						{% endif %}
 					</div>
-
+					{% if is_granted('ROLE_ADMIN') %}
+						<div id="editMessage-{{discussion.id}}" class="pop_up_container">
+							<h2>Modification du message de
+								{{discussion.user.pseudo}}
+								:</h2>
+							<input type="text" id="editInput-{{discussion.id}}"/>
+							<div>
+								<button onclick="openEditMessage({{discussion.id}})">annuler</button>
+								<script>
+									document.getElementById('editInput-' +'{{ discussion.id }}').value = "{{ discussion.text }}".replace('&#039;', "'");
+								</script>
+								<a class="primaryButton edit" onclick="showDetails('{{ discussion.id }}')">modifier</a>
+							</div>
+						</div>
+						<div id="deleteMessage-{{discussion.id}}" class="pop_up_container">
+							<h2>Supprimer cette discussion de
+								{{discussion.user.pseudo}}
+								?</h2>
+							<p>
+								<strong>Message</strong>
+								:
+								{{discussion.text}}</p>
+							<div>
+								<button onclick="openDeleteMessage({{discussion.id}})">annuler</button>
+								<a href="{{ path('delete_discussion', {discussionId: discussion.id}) }}" class="primaryButton">supprimer</a>
+							</div>
+						</div>
+					{% endif %}
 				{% endfor %}
 				{{ knp_pagination_render(discussions) }}
 
@@ -87,6 +114,7 @@ closeButton.innerText = "Ecrire un Message";
 }
 }
 
+
 function openSendMessage() {
 el = document.getElementById("sendMessage");
 closeButton = document.getElementById("closeButton");
@@ -97,6 +125,20 @@ closeButton.innerText = "Fermer";
 } else {
 closeButton.innerText = "Ecrire un Message";
 }
+}
+
+function openEditMessage(discussionId) {
+el = document.getElementById("editMessage-" + discussionId);
+el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+
+function openDeleteMessage(discussionId) {
+el = document.getElementById("deleteMessage-" + discussionId);
+el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+
+function showDetails(id) {
+window.location = '/admin/edit-discussion/' + id + '-' + document.getElementById('editInput-' + id).value;
 }
 		</script>
 

@@ -334,3 +334,53 @@ button:focus {
   border-color: #d41d05;
   color: #f8f8f8;
 }
+
+/* POP UP */
+.pop_up_container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  padding: 40px 60px;
+  background-color: #1b1c1e;
+  border-radius: 8px;
+  color: #f8f8f8;
+  z-index: 100;
+  visibility: hidden;
+}
+.pop_up_container p {
+  color: #f8f8f8;
+}
+
+.pop_up_container div {
+  margin-top: 20px;
+  float: right;
+}
+.pop_up_container div button {
+  border-radius: 5px;
+  transition: 0s;
+}
+.pop_up_container input {
+  color: #f8f8f8;
+  border-color: #f8f8f8;
+  margin-top: 20px;
+}
+.pop_up_container div .primaryButton {
+  background-color: #1b1c1e;
+  color: #f8f8f8;
+  border: 1px solid #f8f8f8;
+  padding: 12px 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  transition: 0s;
+}
+
+.pop_up_container div .primaryButton:hover {
+  background-color: #d41d05;
+  border: 1px solid #d41d05;
+}
+.pop_up_container div .edit:hover {
+  background-color: #1ebe18;
+  border: 1px solid #1ebe18;
+}
