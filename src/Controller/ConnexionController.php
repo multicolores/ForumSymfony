@@ -185,4 +185,15 @@ class ConnexionController extends AbstractController
     public function logout()
     {
     }
+
+
+    #[Route('/connected', name: 'connected_users')]
+    public function connectedUser(ManagerRegistry $doctrine): Response
+    {
+        $repository = $doctrine->getRepository(User::class);
+        $userList = $repository->findAll();
+        $numberOfUser = count($userList);
+
+        return $this->json(['code' => 200, 'userNumber' => $numberOfUser], 200);
+    }
 }
