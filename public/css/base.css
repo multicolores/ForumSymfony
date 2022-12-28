@@ -152,6 +152,13 @@ a:hover {
   z-index: 25;
 }
 
+.users_number {
+  position: fixed;
+  right: 2vw;
+  bottom: 4vh;
+  font-size: 1em;
+}
+
 .logout_link {
   position: absolute;
   right: 3vw;
