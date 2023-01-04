@@ -29,7 +29,7 @@
 					<a class="nav-item nav-link" href="{{ path('home') }}">Home</a>
 					<a class="nav-item nav-link" href="{{ path('inscription_user') }}">Inscription</a>
 					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-						<a class="nav-item nav-link" href="{{ path('home') }}">Modifier mon profil</a>
+						<a class="nav-item nav-link" href="{{ path('user_update') }}">Modifier mon profil</a>
 						<a class="nav-item nav-link logout_link" href="{{ path('app_logout') }}">Deconnexion</a>
 					{% endif %}
 					{% if is_granted('ROLE_ADMIN') %}
@@ -54,15 +54,15 @@
 
 		<script>
 			const baseUrl = 'http://' + window.location.host;
-			axios.get(baseUrl + "/connected").then(function (response) {
-				document.getElementById("users_number").textContent = response.data.userNumber;
-			})
+axios.get(baseUrl + "/connected").then(function (response) {
+document.getElementById("users_number").textContent = response.data.userNumber;
+})
 
-			const interval = setInterval(function () {
-				axios.get(baseUrl + "/connected").then(function (response) {
-					document.getElementById("users_number").textContent = response.data.userNumber;
-				})
-			}, 15000);
+const interval = setInterval(function () {
+axios.get(baseUrl + "/connected").then(function (response) {
+document.getElementById("users_number").textContent = response.data.userNumber;
+})
+}, 15000);
 		</script>
 	</body>
 </html>
