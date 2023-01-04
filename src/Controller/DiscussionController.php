@@ -77,6 +77,7 @@ class DiscussionController extends AbstractController
 
             $repository = $doctrine->getRepository(Theme::class);
             $theme = $repository->findOneBy(['id' => $themeId]);
+            $theme->setLastUpdate(time());
 
             $repository = $doctrine->getRepository(User::class);
             $user = $repository->findOneBy(['id' => $connectedUser->getId()]);
@@ -90,6 +91,11 @@ class DiscussionController extends AbstractController
 
             $entityManager->persist($discussion);
             $entityManager->flush();
+
+            $theme->setLastUpdate(time());
+            $entityManager->persist($theme);
+            $entityManager->flush();
+
             unset($form);
             unset($discussion);
             $newDiscussion = new Discussion();

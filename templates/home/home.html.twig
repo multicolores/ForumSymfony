@@ -47,7 +47,7 @@
 							<span class="status">Ouvert</span>
 							<h3>{{theme.name}}</h3>
 							{% if theme.lastUpdate %}
-								<span class="lastUpdate">{{theme.lastUpdate|date('d/m/Y')}}</span>
+								<span class="lastUpdate">{{theme.lastUpdate|date('d/m/Y - h:i')}}</span>
 							{% endif %}
 							<p class="nombre_discussions">Nombre de discussions :{{theme.discussions | length}}</p>
 						</div>
