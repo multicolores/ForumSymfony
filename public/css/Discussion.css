@@ -1,9 +1,11 @@
 html {
   scroll-behavior: smooth;
 }
+
 .discussion_container {
   padding: 10vh 20vw;
 }
+
 .discussion {
   width: 100%;
   position: relative;
@@ -24,6 +26,7 @@ html {
   background: rgb(247, 247, 247);
   transition: 0.2s;
 }
+
 .discussion::after {
   content: "";
   position: absolute;
@@ -35,10 +38,12 @@ html {
   z-index: -1;
   border-radius: 10px;
 }
+
 .discussion:hover {
   background: rgb(231, 231, 231);
   transition: 0.2s;
 }
+
 .first_letter {
   z-index: 2;
   position: absolute;
@@ -51,6 +56,7 @@ html {
   background-color: rgb(0, 238, 255);
   border-radius: 50%;
 }
+
 /* .discussion::after{
       content: '';
       position: absolute;
@@ -67,6 +73,7 @@ html {
   position: relative;
   font-size: 1.2em;
 }
+
 /* .user_time::after {
     content: "";
     position: absolute;
@@ -95,6 +102,7 @@ p {
 .G {
   background-color: rgb(0, 238, 255);
 }
+
 .H,
 .I,
 .J,
@@ -104,6 +112,7 @@ p {
 .N {
   background-color: rgb(0, 255, 200);
 }
+
 .O,
 .P,
 .Q,
@@ -113,6 +122,7 @@ p {
 .U {
   background-color: rgb(255, 162, 0);
 }
+
 .V,
 .W,
 .X,
@@ -124,6 +134,7 @@ p {
 .form_container form {
   width: 100%;
 }
+
 #form {
   margin-top: 10px;
   width: 100%;
@@ -131,9 +142,11 @@ p {
   justify-content: space-around;
   gap: 5%;
 }
+
 #form div:first-child {
   width: 100%;
 }
+
 input {
   width: 100%;
   height: 50px;
@@ -144,10 +157,12 @@ input {
   box-shadow: none;
   color: #1b1c1e;
 }
+
 input:focus {
   outline: none !important;
   box-shadow: 0 0 10px #3d444c00;
 }
+
 #form_save {
   color: #1b1c1e;
   border: 1px solid #1b1c1e;
@@ -156,10 +171,12 @@ input:focus {
 #sendMessage {
   visibility: hidden;
 }
+
 .writeMessageButton {
   float: right;
   margin-top: 10px !important;
 }
+
 .sendMessage_container {
   position: relative;
   margin-top: 100px;
@@ -181,10 +198,15 @@ input:focus {
   border-radius: 10px;
 }
 
+.sendMessage_container #form_save {
+  transition: 0s !important;
+}
+
 a {
   position: relative;
   text-decoration: none !important;
 }
+
 a:focus,
 button:focus {
   /* Provide a fallback style for browsers
@@ -214,11 +236,13 @@ button:focus {
   width: 100%;
   height: 100%;
 }
+
 .sendMessageFixedRightButton {
   position: fixed;
   right: 2vw;
   top: 12vh;
 }
+
 /* #closeButton {
   padding: 1.4rem 1.5rem;
 } */
@@ -231,48 +255,40 @@ button:focus {
   content: "";
   z-index: -1;
   background: #1b1c1e;
-  -webkit-clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% 70%,
-    85% 70%,
-    80% 70%,
-    75% 70%,
-    0 70%
-  );
-  clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% 70%,
-    85% 70%,
-    80% 70%,
-    75% 70%,
-    0 70%
-  );
+  -webkit-clip-path: polygon(0% 0%,
+      100% 0%,
+      100% 70%,
+      85% 70%,
+      80% 70%,
+      75% 70%,
+      0 70%);
+  clip-path: polygon(0% 0%,
+      100% 0%,
+      100% 70%,
+      85% 70%,
+      80% 70%,
+      75% 70%,
+      0 70%);
   transition: clip-path 0.3s cubic-bezier(0.7, 0, 0.2, 1),
     -webkit-clip-path 0.3s cubic-bezier(0.7, 0, 0.2, 1), transform 0.3s ease;
 }
 
 .button--open-chat:hover::before {
   transform: translate3d(0, -10px, 0);
-  -webkit-clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% 70%,
-    85% 70%,
-    86% 100%,
-    75% 70%,
-    0 70%
-  );
-  clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% 70%,
-    85% 70%,
-    86% 100%,
-    75% 70%,
-    0 70%
-  );
+  -webkit-clip-path: polygon(0% 0%,
+      100% 0%,
+      100% 70%,
+      85% 70%,
+      86% 100%,
+      75% 70%,
+      0 70%);
+  clip-path: polygon(0% 0%,
+      100% 0%,
+      100% 70%,
+      85% 70%,
+      86% 100%,
+      75% 70%,
+      0 70%);
 }
 
 .button--open-chat span {
@@ -280,20 +296,21 @@ button:focus {
   position: relative;
 }
 
-.button--open-chat > span {
+.button--open-chat>span {
   transition: transform 0.3s;
   transform: translate3d(0, -0.556rem, 0);
   z-index: 1;
   overflow: hidden;
 }
 
-.button--open-chat:hover > span {
+.button--open-chat:hover>span {
   transform: translate3d(0, -1.111rem, 0);
 }
 
-.button--open-chat:hover > span > span {
+.button--open-chat:hover>span>span {
   animation: MoveUpInitial 0.15s forwards, MoveUpEnd 0.15s forwards 0.15s;
 }
+
 @keyframes MoveUpInitial {
   to {
     transform: translate3d(0, -105%, 0);
@@ -304,6 +321,7 @@ button:focus {
   from {
     transform: translate3d(0, 100%, 0);
   }
+
   to {
     transform: translate3d(0, 0, 0);
   }
@@ -320,15 +338,18 @@ button:focus {
   align-items: center;
   gap: 10px;
 }
+
 .discussion_actions button {
   border-color: black;
   color: black;
   border-radius: 5px;
 }
+
 .discussion_actions button:hover {
   background-color: #1b1c1e;
   color: #f8f8f8;
 }
+
 .discussion_actions button:last-child:hover {
   background-color: #d41d05;
   border-color: #d41d05;
@@ -340,15 +361,20 @@ button:focus {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 60vh);
   width: 700px;
   padding: 40px 60px;
   background-color: #1b1c1e;
   border-radius: 8px;
   color: #f8f8f8;
   z-index: 100;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
+
+.pop_up_container.visible {
+  transform: translate(-50%, -50%);
+}
+
 .pop_up_container p {
   color: #f8f8f8;
 }
@@ -357,15 +383,18 @@ button:focus {
   margin-top: 20px;
   float: right;
 }
+
 .pop_up_container div button {
   border-radius: 5px;
   transition: 0s;
 }
+
 .pop_up_container input {
   color: #f8f8f8;
   border-color: #f8f8f8;
   margin-top: 20px;
 }
+
 .pop_up_container div .primaryButton {
   background-color: #1b1c1e;
   color: #f8f8f8;
@@ -380,6 +409,7 @@ button:focus {
   background-color: #d41d05;
   border: 1px solid #d41d05;
 }
+
 .pop_up_container div .edit:hover {
   background-color: #1ebe18;
   border: 1px solid #1ebe18;

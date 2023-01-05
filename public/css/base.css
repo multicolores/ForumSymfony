@@ -12,6 +12,7 @@ body {
 .body_container {
   padding: 1% 10%;
 }
+
 .nav_container {
   height: 10vh;
   background: rgb(29, 29, 29);
@@ -22,18 +23,22 @@ body {
   font-weight: bold;
   font-size: 2vw;
 }
+
 .navbar {
   background: rgb(44, 44, 44) !important;
   padding-left: 13vw;
   z-index: 20;
 }
+
 img {
   width: 50%;
 }
+
 h1,
 h2 {
   font-weight: bold;
 }
+
 button {
   padding: 10px 17px;
   background-color: rgba(255, 255, 255, 0);
@@ -44,6 +49,7 @@ button {
   transition: 0.3s;
   cursor: pointer;
 }
+
 /* button:hover {
   background-color: white;
   color: black;
@@ -53,6 +59,7 @@ a {
   text-decoration: none;
   transform: 0.3s;
 }
+
 a:hover {
   color: white;
 }
@@ -62,6 +69,7 @@ a:hover {
   margin: 10vh 50%;
   transform: translateX(-50%);
 }
+
 .errorMessage {
   width: 100%;
   background: white;
@@ -88,6 +96,7 @@ a:hover {
   cursor: pointer;
   text-decoration: none !important;
 }
+
 .primaryButton:hover {
   background-color: white;
   color: black;
@@ -104,10 +113,12 @@ a:hover {
   justify-content: flex-end;
   gap: 20px;
 }
+
 .pagination .current {
   position: relative;
   padding: 10px 10px;
 }
+
 .pagination .current::after {
   content: "";
   position: absolute;
@@ -117,16 +128,19 @@ a:hover {
   bottom: -3px;
   right: 0;
 }
+
 .pagination span {
   padding: 10px 10px;
   color: black;
 }
+
 .pagination a {
   text-decoration: none;
   padding: 10px 10px;
   position: relative;
   color: black;
 }
+
 .pagination a::after {
   content: "";
   position: absolute;
@@ -137,6 +151,7 @@ a:hover {
   right: 0;
   transition: 300ms;
 }
+
 .pagination a:hover::after {
   width: 100%;
 }
@@ -162,4 +177,16 @@ a:hover {
 .logout_link {
   position: absolute;
   right: 3vw;
+}
+
+.visible {
+  transform: translate(0);
+  opacity: 1;
+  transition: .3s;
+}
+
+.hidden {
+  transform: translateY(200px);
+  opacity: 0;
+  transition: .3s;
 }

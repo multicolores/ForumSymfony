@@ -16,12 +16,12 @@
 
 
 			{% if app.request.get('loginError') == "error" %}
-				<div class="login_dialog_container" id="dialog" style="visibility: visible;">
+				<div class="login_dialog_container visible" id="dialog">
 					<a class="close-dialog" onclick="toggleDialog()">Fermer</a>
 					{{render(path('app_login'))}}
 				</div>
 			{% else %}
-				<div class="login_dialog_container" id="dialog" style="visibility: hidden;">
+				<div class="login_dialog_container hidden" id="dialog">
 					<a class="close-dialog" onclick="toggleDialog()">Fermer</a>
 					{{render(path('app_login'))}}
 				</div>
@@ -62,8 +62,14 @@
 	</div>
 	<script>
 		function toggleDialog() {
-el = document.getElementById("dialog");
-el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
-}
+			el = document.getElementById("dialog");
+			if (el.classList.contains("visible")) {
+				el.classList.remove("visible");
+				el.classList.add("hidden");
+			} else {
+				el.classList.remove("hidden");
+				el.classList.add("visible"); 
+			}
+		}
 	</script>
 {% endblock %}
