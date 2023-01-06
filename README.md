@@ -1,6 +1,7 @@
 # Forum de Florian TELLIER
 
-Ce projet est réaliser en Symfony
+Ce projet en Symfony à été réalisé en License 3  
+Les fonctionnalités présentes dans ce site font suite à une list de User Story
 ### `php version: 8.1`
 ### `symfony version: 6.1`
 
